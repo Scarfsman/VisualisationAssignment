@@ -13,9 +13,8 @@ df = pd.read_csv('Athletes_summer_games.csv')
 gold_df = df[df['Medal'] == 'Gold']
 
 gold_df = gold_df[['Name', 'Team', 'Medal', 'Event', 'Year']]
+gold_df = gold_df.groupby(['Year', 'Team', 'Event', 'Medal']).sum().reset_index()
 gold_df['Medal'] = 1
-
-gold_df = gold_df.groupby(['Year', 'Team']).sum().reset_index()
 
 
 
@@ -55,6 +54,7 @@ colours = ['green', 'red', 'blue', 'purple']
 title = 'All Time Gold Medals for Recent Host Nations'
 
 plotTeamMedals(countries, ax, years, colours, title)
+
 
 
 
