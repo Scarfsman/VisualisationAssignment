@@ -18,7 +18,8 @@ gold_df['Medal'] = 1
 gold_df = gold_df.groupby(['Year', 'Team']).sum().reset_index()
 
 
-def plotTeamMedals(Y, ax, labels = None, title = None):
+
+def plotTeamMedals(Y, ax, years, colours, title):
     """
     Creates a line plot comparing serveral countries gold medals on the same graph
     
@@ -28,22 +29,33 @@ def plotTeamMedals(Y, ax, labels = None, title = None):
     ax -> plt.ax - the axis to plot the graph on 
     
     title -> str() - opional, adds a title to the grpah
+    
+    years -> List[int()] - optional, adds vertical lines to the 
     """
     
-    for team in Y:
+    for i, team in enumerate(Y):
         print('Creating line for {}'.format(team))
         temp_df = gold_df[gold_df['Team'] == team]
-        ax.plot(temp_df['Year'], temp_df['Medal'], label = team)
+        temp_df['Medal'] = temp_df['Medal'].cumsum()
+        ax.plot(temp_df['Year'], temp_df['Medal'], label = team, color = colours[i])
+        if years:
+            ax.axvline(years[i], alpha = 0.65, linestyle = '--', color = colours[i])
         
     plt.legend()
+    plt.title(title)
     plt.xlabel('Year')
     plt.ylabel('Gold Medals')
-    plt.show()
         
     
 fig, ax = plt.subplots()
 
-plotTeamMedals(['France', 'United States', 'Great Britain', 'Soviet Union'], ax)
+countries = ['Australia', 'China', 'Great Britain', 'Japan']
+years = [2000, 2008, 2012, 2020]
+colours = ['green', 'red', 'blue', 'purple']
+title = 'All Time Gold Medals for Recent Host Nations'
+
+plotTeamMedals(countries, ax, years, colours, title)
+
 
 
 
