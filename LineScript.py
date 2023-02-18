@@ -8,29 +8,22 @@ Created on Wed Feb 15 15:16:02 2023
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('Athletes_summer_games.csv')
+gold_df = pd.read_csv('gold_df.csv')
 
-gold_df = df[df['Medal'] == 'Gold']
-
-gold_df = gold_df[['Name', 'Team', 'Medal', 'Event', 'Year']]
-gold_df = gold_df.groupby(['Year', 'Team', 'Event', 'Medal']).sum().reset_index()
-gold_df['Medal'] = 1
-
-
-
-def plotTeamMedals(Y, ax, years, colours, title):
+def plotTeamMedals(Y, years, colours, title):
     """
     Creates a line plot comparing serveral countries gold medals on the same graph
     
+    Parameters
+    ----------
     Y -> list[str()] - the column name(s) for the variable on 
     the y axis. 
-    
-    ax -> plt.ax - the axis to plot the graph on 
-    
     title -> str() - opional, adds a title to the grpah
-    
     years -> List[int()] - optional, adds vertical lines to the 
+    ----------
     """
+    
+    fig, ax = plt.subplots()
     
     for i, team in enumerate(Y):
         print('Creating line for {}'.format(team))
@@ -44,16 +37,13 @@ def plotTeamMedals(Y, ax, years, colours, title):
     plt.title(title)
     plt.xlabel('Year')
     plt.ylabel('Gold Medals')
-        
-    
-fig, ax = plt.subplots()
 
 countries = ['Australia', 'China', 'Great Britain', 'Japan']
 years = [2000, 2008, 2012, 2020]
 colours = ['green', 'red', 'blue', 'purple']
-title = 'All Time Gold Medals for Recent Host Nations'
+title = 'Olympic Event Wins for Recent Host Nations'
 
-plotTeamMedals(countries, ax, years, colours, title)
+plotTeamMedals(countries, years, colours, title)
 
 
 
