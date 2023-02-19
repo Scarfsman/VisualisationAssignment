@@ -28,6 +28,10 @@ def namesToPie(names, df):
     
     
     for x in names:
+# =============================================================================
+#         checks whether the names passed is in the athlete column, so that we can filter the correct row in the
+#         database
+# =============================================================================
         if x in df['Name'].unique():
             newRow = pd.DataFrame([{'Name': x, 'Count': df[df['Name'] == x]['Medal'].sum()}])
         else:
@@ -39,10 +43,10 @@ def namesToPie(names, df):
     ax.pie(pie_df['Count'], labels = pie_df['Name'])
     plt.show()
         
-        
-lissdfs = ['Michael Fred Phelps, II', 'Brazil', 'Russia', 'India', 'China']
+#the list of names we want to use for our pie chart
+namesToPlot = ['Michael Fred Phelps, II', 'Brazil', 'Russia', 'India', 'China']
 
-namesToPie(lissdfs, phelps_df)
+namesToPie(namesToPlot, phelps_df)
             
             
         
