@@ -8,7 +8,7 @@ Created on Wed Feb 15 15:16:02 2023
 import pandas as pd
 import matplotlib.pyplot as plt
 
-gold_df = pd.read_csv('gold_df.csv')
+gold_df = pd.read_csv('gold_df.csv', index_col=0)
 
 def plotTeamMedals(Y, years, colours, title):
     """
@@ -28,7 +28,7 @@ def plotTeamMedals(Y, years, colours, title):
     for i, team in enumerate(Y):
         print('Creating line for {}'.format(team))
         temp_df = gold_df[gold_df['Team'] == team]
-        temp_df['Medal'] = temp_df['Medal'].cumsum()
+        temp_df.loc[:,'Medal'] = temp_df.loc[:,'Medal'].cumsum()
         ax.plot(temp_df['Year'], temp_df['Medal'], label = team, color = colours[i])
         if years:
             ax.axvline(years[i], alpha = 0.65, linestyle = '--', color = colours[i])

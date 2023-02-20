@@ -23,6 +23,11 @@ gold_df = df[df['Medal'] == 'Gold']
 gold_df = gold_df[['Name', 'Team', 'Medal', 'Event', 'Year']]
 gold_df = gold_df.groupby(['Year', 'Team', 'Event', 'Medal', 'Name']).sum().reset_index()
 
+# =============================================================================
+# changing the stings in the Medal column for 'gold', to 1, so it can easier be used
+# for plotting functions:
+# =============================================================================
+    
 gold_df['Medal'] = 1
 
 gold_df.to_csv('gold_df.csv')
