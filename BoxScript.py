@@ -10,5 +10,11 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv('gold_df.csv', index_col=0)
 
-country_df = df.groupby(['Year', 'Team', 'Event']).sum(numeric_only = True).reset_index()
-britain_df = country_df[country_df['Team'] == 'Great Britain']
+temp = df[df['Team'] == 'Great Britain']
+temp = temp.drop(['Name'], axis = 1)
+temp = temp.groupby(['Year', 'Team', 'Event']).sum(numeric_only = True)
+temp['Medal'] = 1
+temp = temp.groupby(['Year']).sum(numeric_only = True)
+
+plt.boxplot(temp['Medal'])
+
