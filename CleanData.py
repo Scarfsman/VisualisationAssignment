@@ -17,9 +17,10 @@ import pandas as pd
 # the total number of gold medals an athlete or a nation has won
 # =============================================================================
 
-df = pd.read_csv('Athletes_summer_games.csv')
+df = pd.read_csv('athlete_events.csv')
 
 gold_df = df[df['Medal'] == 'Gold']
+gold_df = gold_df[gold_df['Season'] == 'Summer']
 gold_df = gold_df[['Name', 'Team', 'Medal', 'Event', 'Year']]
 gold_df = gold_df.groupby(['Year', 'Team', 'Event', 'Medal', 'Name']).sum().reset_index()
 

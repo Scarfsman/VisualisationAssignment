@@ -10,11 +10,22 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv('gold_df.csv', index_col=0)
 
-temp = df[df['Team'] == 'Great Britain']
-temp = temp.drop(['Name'], axis = 1)
-temp = temp.groupby(['Year', 'Team', 'Event']).sum(numeric_only = True)
-temp['Medal'] = 1
-temp = temp.groupby(['Year']).sum(numeric_only = True)
+def createBox (teams):
+    
+    labels = []
+    results = []
+    
+    for team in teams:    
+        temp = df[df['Team'] == team]
+        temp = temp.drop(['Name'], axis = 1)
+        temp = temp.groupby(['Year', 'Team', 'Event']).sum(numeric_only = True)
+        temp['Medal'] = 1
+        temp = temp.groupby(['Year']).sum(numeric_only = True)
+        results.append(temp['Medal'])
+        labels.append(team)
+    
+    plt.boxplot(results, labels = labels)
 
-plt.boxplot(temp['Medal'])
+teams = ['Germany', 'France', 'Spain']
 
+createBox(teams)
