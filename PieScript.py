@@ -17,10 +17,9 @@ def namesToPie(names, df):
     """    
     Parameters
     ----------
-    cat : lis[st()] -> Whether the ith name passed in the name list is an athlete or a country. 
-    a -> athlete
-    c-> country
-    name : lis[st()] -> list holding the names of the 
+    names : lis[st()] -> list holding the names of the athletes and teams we want to 
+    create a pie chart for
+    df : pd.Dataframe -> Dataframe from which the graph will be generated
     -------
     
     Plots a pir chart of the gold medals for the selected names
@@ -41,6 +40,7 @@ def namesToPie(names, df):
             
     fig, ax = plt.subplots()
     ax.pie(pie_df['Count'], labels = pie_df['Name'], explode=[0.1,0,0,0,0])
+    plt.savefig('pieplot.png')
     plt.show()
         
 #the list of names we want to use for our pie chart

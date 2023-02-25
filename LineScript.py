@@ -10,40 +10,50 @@ import matplotlib.pyplot as plt
 
 gold_df = pd.read_csv('gold_df.csv', index_col=0)
 
-def plotTeamMedals(Y, years, colours, title):
+def plotTeamMedals(teams, years, colours):
     """
-    Creates a line plot comparing serveral countries gold medals on the same graph
-    
     Parameters
     ----------
-    Y -> list[str()] - the column name(s) for the variable on 
-    the y axis. 
-    title -> str() - opional, adds a title to the grpah
-    years -> List[int()] - optional, adds vertical lines to the 
+    Y -> list[str()] - the column name(s) for the variable on the y axis. 
+    years -> List[int()] - adds vertical lines to the graph at the corresponding 
+    year value. plots nothing if the value passed in the list is 0.
+    colours -> list[str()] - the colour the corresponding countries lines will be, 
+    i.e. colours[i] will be the colour for the lines generated for teams[i]
     ----------
+    Creates a line plot comparing serveral countries gold medals on the same graph
     """
     
     fig, ax = plt.subplots()
     
-    for i, team in enumerate(Y):
-        print('Creating line for {}'.format(team))
+    for i, team in enumerate(teams):
+        # since we are generating the linegraph to look at cummulative medals, we need to 
+        # format our data so that we can run the cumsum() function on the medals column
         temp_df = gold_df[gold_df['Team'] == team]
+        temp_df = temp_df.drop(['Name'], axis = 1)
+        temp_df = temp_df.groupby(['Year', 'Team', 'Event']).sum(numeric_only = True)
+        temp_df['Medal'] = 1
+        temp_df = temp_df.groupby(['Year']).sum(numeric_only = True).reset_index()
         temp_df.loc[:,'Medal'] = temp_df.loc[:,'Medal'].cumsum()
         ax.plot(temp_df['Year'], temp_df['Medal'], label = team, color = colours[i])
-        if years:
-            ax.axvline(years[i], alpha = 0.65, linestyle = '--', color = colours[i])
+        #ignore 0s in the year column
+        if years[i] != 0:
+            ax.axvline(years[i], alpha = 0.85, linestyle = '--', color = colours[i])
         
     plt.legend()
-    plt.title(title)
     plt.xlabel('Year')
     plt.ylabel('Gold Medals')
+    plt.savefig('Lineplot.png')
+    plt.show()
 
-countries = ['Australia', 'China', 'Great Britain', 'Japan']
-years = [2000, 2008, 2012, 2020]
-colours = ['green', 'red', 'blue', 'purple']
-title = 'Olympic Event Wins for Recent Host Nations'
+#the countries we are ploting medals for
+countries = ['Germany', 'Canada','China', 'Great Britain', 'Brazil']
+#the years the countries hosted the olympics
+years = [0, 0, 2008, 2012, 2016]
+#the colour the corresponding countries lines will be
+colours = ['purple', 'pink','red', 'blue', 'green', ]
 
-plotTeamMedals(countries, years, colours, title)
+plotTeamMedals(countries, years, colours)
+
 
 
 
