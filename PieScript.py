@@ -39,12 +39,16 @@ def namesToPie(names, df):
         pie_df = pd.concat([pie_df, newRow], axis=0, ignore_index=True)
             
     fig, ax = plt.subplots()
-    ax.pie(pie_df['Count'], labels = pie_df['Name'], explode=[0.1,0,0,0,0])
+    ax.pie(pie_df['Count'], labels = pie_df['Name'], explode=[0.1,0,0,0,0], autopct='%1.1f%%')
+    print(pie_df)
     plt.savefig('pieplot.png')
     plt.show()
         
 #the list of names we want to use for our pie chart
 namesToPlot = ['Michael Fred Phelps, II', 'Italy', 'France', 'Germany', 'Spain']
+
+leets_df = phelps_df.drop(['Team', 'Event'], axis = 1)
+leets_df = phelps_df.groupby(['Name']).sum()
 
 namesToPie(namesToPlot, phelps_df)
             

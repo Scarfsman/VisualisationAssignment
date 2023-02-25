@@ -41,10 +41,18 @@ def createBox (teams):
 #     use the teams list as our labels.
 # =============================================================================   
     plt.boxplot(results, labels = labels)
+    plt.xlabel('Nation')
+    plt.ylabel('Gold Medals')
     plt.savefig('Boxplot.png')
     plt.show()
 
 #the teams we want to plot on our boxplot
-teams = ['Germany', 'France', 'Spain']
+teams = ['Germany', 'France', 'Spain', 'Italy', 'Great Britain']
+
+temp = df[df['Team'] == 'Great Britain']
+temp = temp.drop(['Name'], axis = 1)
+temp = temp.groupby(['Year', 'Team', 'Event']).sum(numeric_only = True)
+temp['Medal'] = 1
+temp = temp.groupby(['Year']).sum(numeric_only = True)
 
 createBox(teams)
