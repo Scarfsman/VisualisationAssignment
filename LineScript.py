@@ -14,7 +14,7 @@ def plotTeamMedals(teams, years, colours):
     """
     Parameters
     ----------
-    Y -> list[str()] - the column name(s) for the variable on the y axis. 
+    teams -> list[str()] - the column name(s) for the variable on the y axis. 
     years -> List[int()] - adds vertical lines to the graph at the corresponding 
     year value. plots nothing if the value passed in the list is 0.
     colours -> list[str()] - the colour the corresponding countries lines will be, 

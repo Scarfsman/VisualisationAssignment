@@ -49,10 +49,4 @@ def createBox (teams):
 #the teams we want to plot on our boxplot
 teams = ['Germany', 'France', 'Spain', 'Italy', 'Great Britain']
 
-temp = df[df['Team'] == 'Great Britain']
-temp = temp.drop(['Name'], axis = 1)
-temp = temp.groupby(['Year', 'Team', 'Event']).sum(numeric_only = True)
-temp['Medal'] = 1
-temp = temp.groupby(['Year']).sum(numeric_only = True)
-
 createBox(teams)
