@@ -7,8 +7,10 @@ https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-a
 
 ## Scripts Breakdown
 
-CleanData.py -> Removes data thats not used for my visualisations, formats the data to be more useful. transforms the souce data 'athlete_events.csv' into 'gold_df.csv'/n
-LinePlot.py -> Generates the lineplot /n
+CleanData.py -> Removes data thats not used for my visualisations, formats the data to be more useful. transforms the source data 'athlete_events.csv' into 'gold_df.csv
 
-BoxPlot.py -> Generates the boxplot /n
+LinePlot.py -> Generates the lineplot
+
+BoxPlot.py -> Generates the boxplot
+
 PiePlot.py -> Generates the pieplot
