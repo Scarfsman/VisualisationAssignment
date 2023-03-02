@@ -1,5 +1,5 @@
-# Visualisation Assingment
-Visualisation Assigntment for applied data science module
+# Visualisation assignment
+Visualisation assignment for applied data science module
 
 Data sourced from: 
 
